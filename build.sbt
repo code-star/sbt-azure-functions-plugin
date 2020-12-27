@@ -6,7 +6,7 @@ organization := "nl.codestar"
 version := "0.1-SNAPSHOT"
 description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function"
 
-scalaVersion := "2.12.12"
+scalaVersion := "2.12.7"
 scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
   "-deprecation", "-feature", "-unchecked", "-Xlint",
   "-Ywarn-dead-code", "-Ywarn-adapted-args"
@@ -29,7 +29,7 @@ logBuffered in Test := false
 
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
-    case "2.12" => "1.2.8"
+    case "2.12" => "1.3.12"
   }
 }
 

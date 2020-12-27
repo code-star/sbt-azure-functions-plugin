@@ -1,7 +1,5 @@
 package nl.codestar.sbt.plugin.azurefunctions
 
-//import java.io.File
-
 import org.reflections.util.ClasspathHelper
 import sbt._
 

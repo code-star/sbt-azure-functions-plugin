@@ -1,4 +1,4 @@
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
 
 sys.props.get("plugin.version") match {
   case Some(x) => addSbtPlugin("nl.codestar" % "sbt-azure-functions" % x)
