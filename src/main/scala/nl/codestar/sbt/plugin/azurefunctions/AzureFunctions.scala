@@ -2,7 +2,12 @@ package nl.codestar.sbt.plugin.azurefunctions
 
 //import java.io.File
 
+import org.reflections.util.ClasspathHelper
 import sbt._
+
+import java.nio.file.Paths
+import scala.collection.JavaConverters.collectionAsScalaIterableConverter
+
 
 object AzureFunctions extends AutoPlugin {
   override def trigger = AllRequirements
@@ -17,13 +22,21 @@ object AzureFunctions extends AutoPlugin {
 
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
     azureFunctions := {
-        val log = sbt.Keys.streams.value.log
+      val log = sbt.Keys.streams.value.log
 
-        val folder = targetFunctionsFolder.value
+      val folder = targetFunctionsFolder.value
 
-        log.info(s"Running azureFunctions task. Generating to $folder")
-      }
-    )
+      log.info(s"Running azureFunctions task. Generating to $folder")
+
+      val urls = ClasspathHelper.forManifest(Paths.get("target/scala-2.10/root_2.10-0.1.jar").toUri.toURL).asScala.toList
+      //val urls = ClasspathHelper.forPackage("nl.codestar.sample").asScala.toList
+      //val urls = ClasspathHelper.forClassLoader().asScala.toList
+      log.info(s"Looking at ${urls.size} classloader urls...")
+      val configs = FunctionConfigGenerator.getConfigs(urls)
+
+      FunctionConfigGenerator.generateFunctionJsons("ScalaFunctions", Paths.get(folder), configs, Some(log))
+    }
+  )
 
 
 }
