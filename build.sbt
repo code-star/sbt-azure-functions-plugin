@@ -12,6 +12,12 @@ scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
   "-Ywarn-dead-code", "-Ywarn-adapted-args"
 )
 
+pluginCrossBuild / sbtVersion := {
+  scalaBinaryVersion.value match {
+    case "2.12" => "1.2.8"
+  }
+}
+
 scriptedLaunchOpts := { scriptedLaunchOpts.value ++
   Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
 }
