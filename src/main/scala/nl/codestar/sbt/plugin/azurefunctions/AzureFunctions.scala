@@ -21,12 +21,9 @@ object AzureFunctions extends AutoPlugin {
 
         val folder = targetFunctionsFolder.value
 
-        log.debug("debug message")
-        log.info(s"info message. We will generate to $folder")
-        //log.info("info message")
-        log.warn("warning message")
-        log.error("error message")
+        log.info(s"Running azureFunctions task. Generating to $folder")
       }
     )
+
 
 }

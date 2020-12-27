@@ -12,6 +12,19 @@ scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
   "-Ywarn-dead-code", "-Ywarn-adapted-args"
 )
 
+
+libraryDependencies ++= Seq(
+  "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
+  "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1",
+  "com.microsoft.azure" % "azure-functions-maven-plugin" % "1.9.0",
+  "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
+
+  "org.scalatest" %% "scalatest" % "3.2.2" % "test"
+
+)
+
+logBuffered in Test := false
+
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
     case "2.12" => "1.2.8"
