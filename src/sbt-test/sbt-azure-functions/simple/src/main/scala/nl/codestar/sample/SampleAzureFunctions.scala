@@ -14,11 +14,22 @@ import java.util.Optional
 class SampleAzureFunctions {
   @FunctionName("ScalaFunction")
   def run(
-    @HttpTrigger(
-      name="req",
-      methods = Array(HttpMethod.GET),
-    authLevel = AuthorizationLevel.ANONYMOUS) request: HttpRequestMessage[Optional[String]],
-    context: ExecutionContext): HttpResponseMessage = {
+           @HttpTrigger(
+             name="req",
+             methods = Array(HttpMethod.GET),
+             authLevel = AuthorizationLevel.ANONYMOUS) request: HttpRequestMessage[Optional[String]],
+           context: ExecutionContext): HttpResponseMessage = {
+    context.getLogger.info("Scala HTTP Trigger received a request")
+    request.createResponseBuilder(HttpStatus.OK).body("Hello there").build()
+  }
+
+  @FunctionName("SecondFunction")
+  def runAnother(
+           @HttpTrigger(
+             name="req2",
+             methods = Array(HttpMethod.GET),
+             authLevel = AuthorizationLevel.ANONYMOUS) request: HttpRequestMessage[Optional[String]],
+           context: ExecutionContext): HttpResponseMessage = {
     context.getLogger.info("Scala HTTP Trigger received a request")
     request.createResponseBuilder(HttpStatus.OK).body("Hello there").build()
   }

@@ -2,18 +2,16 @@ $ pause
 # show target folder
 > targetFunctionsFolder
 
-> package
-$pause
+# make the Jar
+> assembly
+$ exists target/myFunctions/ScalaFunctions.jar
 
 # generate the function.json
 > azureFunctions
 # verify that output has been generated
 $ pause
-$ exists target/myFunctions/ScalaFunction/function.json
 
-# make the Jar
-> assembly
-$ exists target/myFunctions/ScalaFunctions.jar
+$ exists target/myFunctions/ScalaFunction/function.json
 
 # zip folder including jar and function json files
 # > ???

@@ -6,8 +6,9 @@ lazy val root = (project in file("."))
     scalaVersion := "2.10.6",
 
     targetFunctionsFolder := "target/myFunctions",
+    functionsJar := "ScalaFunctions.jar",
 
-    assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / "ScalaFunctions.jar",
+    assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / functionsJar.value,
 
     libraryDependencies ++= Seq(
       "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"

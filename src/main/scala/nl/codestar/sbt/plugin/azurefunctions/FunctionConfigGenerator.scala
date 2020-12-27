@@ -34,7 +34,7 @@ object FunctionConfigGenerator {
     // add ScriptFilePath to the configs (fill it with '../$jarName.jar')
     log.foreach(_.info(s"Setting scriptFile parameter on ${configs.size} configs..."))
     configs.foreach(config => {
-      config._2.setScriptFile(s"../$jarName.jar")
+      config._2.setScriptFile(s"../$jarName")
     })
 
     // for each K->V in map write function.json to folder K, using values from V

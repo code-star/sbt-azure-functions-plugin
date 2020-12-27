@@ -14,6 +14,7 @@ object AzureFunctions extends AutoPlugin {
 
   object autoImport {
     val targetFunctionsFolder = settingKey[String]("Target folder that receives the Azure function definitions")
+    val functionsJar = settingKey[String]("Name of the jar that holds the function definitions")
 
     val azureFunctions = taskKey[Unit]("Generates the function.json files for all annotated function entry points")
   }
@@ -28,13 +29,13 @@ object AzureFunctions extends AutoPlugin {
 
       log.info(s"Running azureFunctions task. Generating to $folder")
 
-      val urls = ClasspathHelper.forManifest(Paths.get("target/scala-2.10/root_2.10-0.1.jar").toUri.toURL).asScala.toList
+      val urls = ClasspathHelper.forManifest(Paths.get(targetFunctionsFolder.value + "/" + functionsJar.value).toUri.toURL).asScala.toList
       //val urls = ClasspathHelper.forPackage("nl.codestar.sample").asScala.toList
       //val urls = ClasspathHelper.forClassLoader().asScala.toList
       log.info(s"Looking at ${urls.size} classloader urls...")
       val configs = FunctionConfigGenerator.getConfigs(urls)
 
-      FunctionConfigGenerator.generateFunctionJsons("ScalaFunctions", Paths.get(folder), configs, Some(log))
+      FunctionConfigGenerator.generateFunctionJsons(functionsJar.value, Paths.get(folder), configs, Some(log))
     }
   )
 
