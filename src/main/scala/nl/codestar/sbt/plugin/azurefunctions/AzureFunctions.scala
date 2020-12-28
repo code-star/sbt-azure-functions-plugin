@@ -28,9 +28,6 @@ object AzureFunctions extends AutoPlugin {
       log.info(s"Running azureFunctions task. Generating to $folder")
 
       val urls = ClasspathHelper.forManifest(Paths.get(targetFunctionsFolder.value + "/" + functionsJar.value).toUri.toURL).asScala.toList
-      //val urls = ClasspathHelper.forPackage("nl.codestar.sample").asScala.toList
-      //val urls = ClasspathHelper.forClassLoader().asScala.toList
-      log.info(s"Looking at ${urls.size} classloader urls...")
       val configs = FunctionConfigGenerator.getConfigs(urls)
 
       FunctionConfigGenerator.generateFunctionJsons(functionsJar.value, Paths.get(folder), configs, Some(log))
