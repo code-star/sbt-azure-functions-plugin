@@ -19,6 +19,8 @@ so I am also keeping track here:
 | 2.x           | 2.13.x or 3.0.x   |
 | 3.x           | 3.0.x or 3.1.x    |
 
+For now, I will focus only on sbt 1.x and Scala 2.12.x
+
 ## Releasing
 To release a new version:
 * Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.

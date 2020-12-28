@@ -1,47 +1,41 @@
 
-enablePlugins(SbtPlugin)
+lazy val root = (project in file("."))
+  .enablePlugins(SbtPlugin)
+  .settings(
+    name := "sbt-azure-functions",
+    organization := "nl.codestar",
+    // version is set in version.sbt
+    description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
 
-name := "sbt-azure-functions"
-organization := "nl.codestar"
-version := "0.1-SNAPSHOT"
-description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function"
+    scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
+      "-deprecation", "-feature", "-unchecked", "-Xlint",
+      "-Ywarn-dead-code", "-Ywarn-adapted-args"
+    ),
 
-scalaVersion := "2.12.7"
-scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
-  "-deprecation", "-feature", "-unchecked", "-Xlint",
-  "-Ywarn-dead-code", "-Ywarn-adapted-args"
-)
+    libraryDependencies ++= Seq(
+      "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
 
+      "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1",
+      "com.microsoft.azure" % "azure-functions-maven-plugin" % "1.9.0",
+      "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
 
-libraryDependencies ++= Seq(
-  "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
+      "org.scalatest" %% "scalatest" % "3.2.2" % "test"
 
-  "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
-  "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1",
-  "com.microsoft.azure" % "azure-functions-maven-plugin" % "1.9.0",
-  "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
+    ),
 
-  "org.scalatest" %% "scalatest" % "3.2.2" % "test"
+    scriptedLaunchOpts := { scriptedLaunchOpts.value ++
+      Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
+    },
+    scriptedBufferLog := false,
 
-)
+    logBuffered in Test := false,
 
-logBuffered in Test := false
+    bintrayRepository := "sbt-azure-functions",
+    bintrayOrganization := Some("code-star"),
 
-pluginCrossBuild / sbtVersion := {
-  scalaBinaryVersion.value match {
-    case "2.12" => "1.3.12"
-  }
-}
+    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
 
-scriptedLaunchOpts := { scriptedLaunchOpts.value ++
-  Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
-}
-scriptedBufferLog := false
-
-bintrayRepository := "sbt-azure-functions"
-bintrayOrganization := Some("code-star")
-
-licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
-
-publishMavenStyle := false
-publishArtifact in Test := false
+    publishMavenStyle := false,
+    publishArtifact in Test := false
+  )
