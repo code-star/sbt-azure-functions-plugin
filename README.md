@@ -4,7 +4,17 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 
 ## Usage
 
-TODO: add this
+`sbt assembly azureFunctions`
+
+This will generate the fat jar that you want to upload to Azure (`assembly`), and then generates the function
+specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
+annotation)
+
+##TODO: 
+1. include copying the `host.json` and possibly the `local.settings.json`
+1. create the zip file that holds the jar + json files
+1. add task to upload to Azure
+
 
 ## Cross compiling and testing
 Since this is an sbt plugin, it should be usable with multiple versions of sbt. This means it needs to be built and
