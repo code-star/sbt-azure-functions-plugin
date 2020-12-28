@@ -34,5 +34,11 @@ For now, I will focus only on sbt 1.x and Scala 2.12.x
 ## Releasing
 To release a new version:
 * Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
+* Set your credentials - you can use `sbt bintrayChangeCredentials`, but when run from the interactive sbt prompt
+  you will not see the requests for username and password. So blindly first type your username, press enter, then
+  paste your API key and press enter again.
+
+    (found a workaround that shows the prompt again: add to build.sbt: `ThisBuild / useSuperShell := false`)
+* reload to make new settings known to sbt
 * Run `sbt publish`
 

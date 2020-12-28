@@ -39,3 +39,6 @@ lazy val root = (project in file("."))
     publishMavenStyle := false,
     publishArtifact in Test := false
   )
+
+// workaround for interactive sessions that do not echo the user input (https://github.com/sbt/sbt-bintray/issues/177)
+ThisBuild / useSuperShell := false
