@@ -2,13 +2,40 @@
 
 Experimental plugin for sbt to create Azure Function artefacts (function.json) needed to publish code as an Azure Function.
 
-## Usage
+## Setup and Usage
 
-`sbt assembly azureFunctions`
+* Setup
+  
+    in your `project/plugins.sbt` add sbt-assembly and sbt-azure-functions:
+  
+      addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+      addSbtPlugin("nl.codestar" % "sbt-azure-functions" % "0.1")
 
-This will generate the fat jar that you want to upload to Azure (`assembly`), and then generates the function
-specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
-annotation)
+    in your `build.sbt` provide values for the assembly and azure-functions plugins:
+
+        lazy val root = (project in file("."))
+        .settings(
+            ...
+        
+            targetFunctionsFolder := "target/myFunctions",
+            functionsJar := "ScalaFunctions.jar",
+        
+            assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / functionsJar.value,
+        
+            // you need this dependency to be able to use the annotations
+            libraryDependencies ++= Seq(
+              "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+            )
+        
+        )
+
+* Usage
+
+    `sbt assembly azureFunctions`
+
+    This will generate the fat jar that you want to upload to Azure (`assembly`), and then generates the function
+    specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
+    annotation, and further detailed with `@HttpTrigger` annotation)
 
 ##TODO: 
 1. include copying the `host.json` and possibly the `local.settings.json`
