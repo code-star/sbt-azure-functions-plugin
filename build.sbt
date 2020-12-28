@@ -6,6 +6,7 @@ lazy val root = (project in file("."))
     organization := "nl.codestar",
     // version is set in version.sbt
     description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
+    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
 
     scalacOptions ++= Seq("-encoding", "UTF8", "-Xfatal-warnings",
       "-deprecation", "-feature", "-unchecked", "-Xlint",
@@ -34,7 +35,6 @@ lazy val root = (project in file("."))
     bintrayRepository := "sbt-azure-functions",
     bintrayOrganization := Some("code-star"),
 
-    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
 
     publishMavenStyle := false,
     publishArtifact in Test := false
