@@ -31,7 +31,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 
 * Usage
 
-    `sbt assembly azureFunctions`
+    `sbt assembly azfunGenerateFunctionJsons azfunCopyHostJson azfunCopyLocalSettingsJson azfunCreateZipFile`
 
     This will generate the fat jar that you want to upload to Azure (`assembly`), and then generates the function
     specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
@@ -42,6 +42,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 1. create the zip file that holds the jar + json files
 1. add task to upload to Azure
 1. provide a sample project showing plugin usage
+1. create a combined execution task that does azfunGenerateFunctionJsons + azfunCopyHostJson + azfunCopyLocalSettingsJson
 
 
 ## Cross compiling and testing

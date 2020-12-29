@@ -6,12 +6,26 @@
 $ exists target/myFunctions/ScalaFunctions.jar
 
 # generate the function.json
-> azureFunctions
+> azfunGenerateFunctionJsons
+
 # verify that output has been generated
 $ pause
-
 $ exists target/myFunctions/ScalaFunction/function.json
 
+# copy the host.json
+> azfunCopyHostJson
+
+# verify that the host.json has been copied
+$ exists target/myFunctions/host.json
+
+# copy the local.settings.json
+> azfunCopyLocalSettingsJson
+
+# verify that the host.json has been copied
+$ exists target/myFunctions/local.settings.json
+
 # zip folder including jar and function json files
-# > ???
-# $ exists target/
+> azfunCreateZipFile
+$ pause
+# $ exists target/myFunctions.zip
+
