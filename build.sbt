@@ -17,9 +17,8 @@ lazy val root = (project in file("."))
       "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
 
       "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
-      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1",
-      "com.microsoft.azure" % "azure-functions-maven-plugin" % "1.9.0",
       "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
 
       "org.scalatest" %% "scalatest" % "3.2.2" % "test"
 
