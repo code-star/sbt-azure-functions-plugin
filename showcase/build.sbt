@@ -4,7 +4,7 @@ lazy val root = (project in file("."))
     name := "showcase",
     version := "1.0",
 
-    azfunTargetFolder := "target/myFunctions",
+    azfunTargetFolder := "myFunctions",
     azfunJarName := "ScalaFunctions.jar",
 
     assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / azfunJarName.value,
