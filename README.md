@@ -37,12 +37,8 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
     specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
     annotation, and further detailed with `@HttpTrigger` annotation)
 
-##TODO: 
-1. include copying the `host.json` and possibly the `local.settings.json`
-1. create the zip file that holds the jar + json files
+## TODO: 
 1. add task to upload to Azure
-1. provide a sample project showing plugin usage
-1. create a combined execution task that does azfunGenerateFunctionJsons + azfunCopyHostJson + azfunCopyLocalSettingsJson
 
 
 ## Cross compiling and testing

@@ -7,25 +7,29 @@ $ exists target/myFunctions/ScalaFunctions.jar
 
 # generate the function.json
 > azfunGenerateFunctionJsons
-
 # verify that output has been generated
-$ pause
 $ exists target/myFunctions/ScalaFunction/function.json
 
 # copy the host.json
 > azfunCopyHostJson
-
 # verify that the host.json has been copied
 $ exists target/myFunctions/host.json
 
 # copy the local.settings.json
 > azfunCopyLocalSettingsJson
-
 # verify that the host.json has been copied
 $ exists target/myFunctions/local.settings.json
 
+# reset to test automatic trigger of preceding tasks
+> clean
+> assembly
+
 # zip folder including jar and function json files
 > azfunCreateZipFile
+$ exists target/myFunctions/ScalaFunctions.jar
+$ exists target/myFunctions/host.json
+$ exists target/myFunctions/local.settings.json
+$ exists target/myFunctions/ScalaFunction/function.json
+$ exists target/myFunctions.zip
 $ pause
-# $ exists target/myFunctions.zip
 

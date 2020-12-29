@@ -3,6 +3,7 @@ package nl.codestar.sbt.plugin.azurefunctions
 import org.reflections.util.ClasspathHelper
 import sbt.Keys.{baseDirectory, target}
 import sbt._
+import sbt.io.Path.allSubpaths
 
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
@@ -16,10 +17,10 @@ object AzureFunctions extends AutoPlugin {
     val azfunHostJsonFolder = settingKey[String]("Location of the host.json file")
     val azfunLocalSettingsFolder = settingKey[String]("Location of the local.settings.json")
 
-    val azfunGenerateFunctionJsons = taskKey[Unit]("Generates the function.json files for all annotated function entry points")
+    val azfunCreateZipFile = taskKey[Unit]("Generate the zip file containing the complete Azure Function definition")
     val azfunCopyHostJson = taskKey[Unit]("Copies host.json file")
     val azfunCopyLocalSettingsJson = taskKey[Unit]("Copies host.json file")
-    val azfunCreateZipFile = taskKey[Unit]("Generate the zip file containing the complete Azure Function definition")
+    val azfunGenerateFunctionJsons = taskKey[Unit]("Generates the function.json files for all annotated function entry points")
   }
 
   import autoImport._
@@ -51,13 +52,24 @@ object AzureFunctions extends AutoPlugin {
     },
 
     azfunCreateZipFile := {
+      // depend on the steps that provide the contents of the zip
+      val _ = {
+        azfunCopyHostJson.value
+        azfunCopyLocalSettingsJson.value
+        azfunGenerateFunctionJsons.value
+      }
+
       val log = sbt.Keys.streams.value.log
 
       val tgtFolder = (target in Compile).value
 
       log.info("Running azfunCreateZipFile task...")
       log.info(s"Creating Azure Function zip file in target folder ($tgtFolder) ...")
-      log.warn("Creating zip file is not yet implemented")
+
+      val folderName = azfunTargetFolder.value
+      val src = tgtFolder / folderName
+      val tgt = tgtFolder / s"$folderName.zip"
+      IO.zip(allSubpaths(src), tgt)
     },
 
     azfunGenerateFunctionJsons := {
@@ -76,6 +88,5 @@ object AzureFunctions extends AutoPlugin {
       FunctionConfigGenerator.generateFunctionJsons(azfunJarName.value, baseFolder.toPath, configs, Some(log))
     }
   )
-
 
 }
