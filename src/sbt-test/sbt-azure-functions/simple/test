@@ -1,6 +1,5 @@
-$ pause
 # show target folder
-> targetFunctionsFolder
+> azfunTargetFolder
 
 # make the Jar
 > assembly

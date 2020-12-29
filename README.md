@@ -17,8 +17,8 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
         .settings(
             ...
         
-            targetFunctionsFolder := "target/myFunctions",
-            functionsJar := "ScalaFunctions.jar",
+            azfunTargetFolder := "target/myFunctions",
+            azfunJarName := "ScalaFunctions.jar",
         
             assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / functionsJar.value,
         
@@ -41,6 +41,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 1. include copying the `host.json` and possibly the `local.settings.json`
 1. create the zip file that holds the jar + json files
 1. add task to upload to Azure
+1. provide a sample project showing plugin usage
 
 
 ## Cross compiling and testing
