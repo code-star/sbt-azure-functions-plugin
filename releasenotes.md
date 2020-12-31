@@ -1,5 +1,10 @@
 # Release notes
 
+## Version 0.2.1
+
+Fixes and other changes:
+* update Readme - releasing is done with `sbt release`, not `sbt publish`
+
 ## Version 0.2.0
 New features:
 * Creates zip file that can be uploaded to Azure (`sbt azfunCreateZipFile`)
