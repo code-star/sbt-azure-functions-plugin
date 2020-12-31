@@ -4,6 +4,7 @@
 
 Fixes and other changes:
 * update Readme - releasing is done with `sbt release`, not `sbt publish`
+* Several documentation updates to better describe usage 
 
 ## Version 0.2.0
 New features:

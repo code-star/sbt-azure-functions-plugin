@@ -18,10 +18,10 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
         .settings(
             ...
         
-            azfunTargetFolder := "target/myFunctions",
+            azfunTargetFolder := "myFunctions",
             azfunJarName := "ScalaFunctions.jar",
         
-            assemblyOutputPath in assembly := baseDirectory.value / "target" / "myFunctions" / functionsJar.value,
+            assemblyOutputPath in assembly := target.value / azfunTargetFolder.value / functionsJar.value,
         
             // you need this dependency to be able to use the annotations
             libraryDependencies ++= Seq(
@@ -47,6 +47,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 
 ## TODO: 
 1. add task to upload to Azure
+1. add tests against multiple Java versions (java 8 and Java 11)
 
 
 ## Cross compiling and testing
