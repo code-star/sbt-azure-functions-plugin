@@ -1,6 +1,7 @@
 
 lazy val root = (project in file("."))
   .enablePlugins(SbtPlugin)
+  .enablePlugins( AssemblyPlugin)
   .settings(
     name := "sbt-azure-functions",
     organization := "nl.codestar",
