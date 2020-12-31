@@ -1,4 +1,5 @@
-# SBT Azure Functions Plugin [![scaladex-badge][]][scaladex] [![travis-badge][]][travis]
+# SBT Azure Functions Plugin 
+[ ![Download](https://api.bintray.com/packages/code-star/sbt-azure-functions/sbt-azure-functions/images/download.svg) ](https://bintray.com/code-star/sbt-azure-functions/sbt-azure-functions/_latestVersion)
 
 Experimental plugin for sbt to create Azure Function artefacts (function.json) needed to publish code as an Azure Function.
 
