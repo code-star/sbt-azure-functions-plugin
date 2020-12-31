@@ -1,4 +1,4 @@
-# SBT Azure Functions Plugin
+# SBT Azure Functions Plugin [![scaladex-badge][]][scaladex] [![travis-badge][]][travis]
 
 Experimental plugin for sbt to create Azure Function artefacts (function.json) needed to publish code as an Azure Function.
 
