@@ -30,6 +30,7 @@ $ exists target/myFunctions/ScalaFunctions.jar
 $ exists target/myFunctions/host.json
 $ exists target/myFunctions/local.settings.json
 $ exists target/myFunctions/ScalaFunction/function.json
+$ pause
 $ exists target/myFunctions.zip
 
 # Uncomment the next lines if you want to look at the results from the scripted test
