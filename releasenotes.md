@@ -1,6 +1,8 @@
 # Release notes
 
 ## Version 0.2.1
+New features:
+* Settings and Tasks now have proper types where relevant (instead of `String` and `Unit`)
 
 Fixes and other changes:
 * update Readme - releasing is done with `sbt release`, not `sbt publish`
