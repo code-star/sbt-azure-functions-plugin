@@ -33,6 +33,7 @@ lazy val root = (project in file("."))
     logBuffered in Test := false,
     bintrayRepository := "sbt-azure-functions",
     bintrayOrganization := Some("code-star"),
+    bintrayPackageLabels := Seq("sbt", "plugin"),
     publishMavenStyle := false,
     publishArtifact in Test := false
   )
