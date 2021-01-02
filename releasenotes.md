@@ -1,5 +1,13 @@
 # Release notes
 
+## Version 0.2.2
+New Features:
+*
+
+Fixes and other changes:
+* Restructure project to be in line with the `sbt/sbt-autoplugin.g8` template
+
+
 ## Version 0.2.1
 New features:
 * Settings and Tasks now have proper types where relevant (instead of `String` and `Unit`)
