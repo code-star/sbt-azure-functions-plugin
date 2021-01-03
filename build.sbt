@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     publishMavenStyle := false,
     publishArtifact in Test := false,
     // make sure the library is published locally before running scripted
-    scripted := (scripted dependsOn publishLocal).value
+    scripted := (scripted dependsOn publishLocal)
   )
 
 lazy val library = (project in file("library"))
