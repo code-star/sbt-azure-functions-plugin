@@ -3,7 +3,7 @@ package nl.codestar.azurefunctions
 import com.fasterxml.jackson.databind.{ObjectMapper, ObjectWriter}
 import com.microsoft.azure.common.function.configurations.FunctionConfiguration
 import com.microsoft.azure.common.function.handlers.AnnotationHandlerImpl
-import org.slf4j.Logger
+import com.typesafe.scalalogging.{LazyLogging, Logger}
 
 import java.lang.reflect.Method
 import java.net.URL
@@ -15,7 +15,7 @@ import scala.collection.JavaConverters.{
   setAsJavaSetConverter
 }
 
-object FunctionConfigGenerator {
+object FunctionConfigGenerator extends LazyLogging {
   val handler = new AnnotationHandlerImpl()
 
   def getFunctions(urls: List[URL]): Set[Method] = {
@@ -28,7 +28,7 @@ object FunctionConfigGenerator {
   }
 
   def generateFunctionJsons(jarName: String, baseFolder: Path, configs: Map[String, FunctionConfiguration]): Unit = {
-    generateFunctionJsons(jarName, baseFolder, configs, None)
+    generateFunctionJsons(jarName, baseFolder, configs, Some(logger))
   }
 
   def generateFunctionJsons(

@@ -17,6 +17,7 @@ lazy val library = (project in file("library"))
     libraryDependencies ++= Seq(
       "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
       "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
       "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
       "org.scalatest" %% "scalatest" % "3.2.2" % "test"
     ),
