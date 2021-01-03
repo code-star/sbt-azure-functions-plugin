@@ -78,6 +78,13 @@ This plugin uses artifacts from Microsoft:
 
 For now I will use these versions
 
+### Testing
+#### Unit tests
+* `sbt clean test`
+#### Scripted tests
+* `sbt publishLocal scripted`
+  (the publishLocal is needed to ensure the latest snapshot of the library is available to the plugin)
+
 ## Releasing
 To release a new version:
 * Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
