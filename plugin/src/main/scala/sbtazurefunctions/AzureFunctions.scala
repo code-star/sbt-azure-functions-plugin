@@ -5,7 +5,6 @@ import org.reflections.util.ClasspathHelper
 import sbt.Keys.{baseDirectory, target}
 import sbt._
 import sbt.io.Path.allSubpaths
-//import sbtassembly.AssemblyKeys._
 
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
@@ -34,6 +33,7 @@ object AzureFunctionsKeys {
 
 object AzureFunctions extends AutoPlugin {
   override def trigger = AllRequirements
+  override def requires = sbt.plugins.JvmPlugin
 
   object autoImport {
     val AzureFunctionsKeys = sbtazurefunctions.AzureFunctionsKeys
