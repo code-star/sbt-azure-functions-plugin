@@ -1,9 +1,11 @@
-package nl.codestar.sbt.plugin.azurefunctions
+package sbtazurefunctions
 
+import nl.codestar.azurefunctions.FunctionConfigGenerator
 import org.reflections.util.ClasspathHelper
 import sbt.Keys.{baseDirectory, target}
 import sbt._
 import sbt.io.Path.allSubpaths
+//import sbtassembly.AssemblyKeys._
 
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
@@ -98,6 +100,8 @@ object AzureFunctions extends AutoPlugin {
       tgt
     },
     azfunGenerateFunctionJsons := {
+      // depend on assembly step
+      //val _ = assembly.value
       val log = sbt.Keys.streams.value.log
 
       val folder = azfunTargetFolder.value
@@ -111,12 +115,7 @@ object AzureFunctions extends AutoPlugin {
       val configs = FunctionConfigGenerator.getConfigs(urls)
 
       val baseFolder = azfunTargetFolder.value
-      FunctionConfigGenerator.generateFunctionJsons(
-        azfunJarName.value,
-        baseFolder.toPath,
-        configs,
-        Some(log)
-      )
+      FunctionConfigGenerator.generateFunctionJsons(azfunJarName.value, baseFolder.toPath, configs)
       azfunTargetFolder.value
     }
   )

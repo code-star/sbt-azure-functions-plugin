@@ -1,14 +1,19 @@
-package nl.codestar.sbt.plugin.azurefunctions
+package nl.codestar.azurefunctions
 
 import com.fasterxml.jackson.databind.{ObjectMapper, ObjectWriter}
 import com.microsoft.azure.common.function.configurations.FunctionConfiguration
 import com.microsoft.azure.common.function.handlers.AnnotationHandlerImpl
-import sbt.internal.util.ManagedLogger
+import org.slf4j.Logger
 
 import java.lang.reflect.Method
 import java.net.URL
 import java.nio.file.{Files, Path}
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.{
+  asScalaSetConverter,
+  mapAsScalaMapConverter,
+  seqAsJavaListConverter,
+  setAsJavaSetConverter
+}
 
 object FunctionConfigGenerator {
   val handler = new AnnotationHandlerImpl()
@@ -22,11 +27,16 @@ object FunctionConfigGenerator {
     handler.generateConfigurations(functions.asJava).asScala.toMap
   }
 
-  def generateFunctionJsons( jarName: String, baseFolder: Path, configs: Map[String, FunctionConfiguration]): Unit = {
+  def generateFunctionJsons(jarName: String, baseFolder: Path, configs: Map[String, FunctionConfiguration]): Unit = {
     generateFunctionJsons(jarName, baseFolder, configs, None)
   }
 
-  def generateFunctionJsons( jarName: String, baseFolder: Path, configs: Map[String, FunctionConfiguration], log: Option[ManagedLogger]): Unit = {
+  def generateFunctionJsons(
+      jarName: String,
+      baseFolder: Path,
+      configs: Map[String, FunctionConfiguration],
+      log: Option[Logger]
+  ): Unit = {
     // ensure baseFolder exists
     log.foreach(_.info(s"Ensuring $baseFolder exists..."))
     Files.createDirectories(baseFolder)
@@ -40,7 +50,7 @@ object FunctionConfigGenerator {
     // for each K->V in map write function.json to folder K, using values from V
     log.foreach(_.info(s"Writing ${configs.size} configs..."))
     val myWriter = getWriter
-    configs.foreach(config =>{
+    configs.foreach(config => {
       log.foreach(_.info(s"Processing ${config._1}..."))
       val folder = baseFolder.resolve(config._1)
       Files.createDirectories(folder)
