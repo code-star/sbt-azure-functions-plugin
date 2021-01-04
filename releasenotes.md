@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 0.2.3 and 0.2.4
+## Version 0.2.3 .. 0.2.5
 Identical to 0.2.2, releases created to validate/fix project setup.
 
 ## Version 0.2.2
