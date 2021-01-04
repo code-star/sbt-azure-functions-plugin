@@ -26,7 +26,6 @@ lazy val library = (project in file("library"))
 
 lazy val plugin = (project in file("plugin"))
   .enablePlugins(SbtPlugin)
-  .enablePlugins(AssemblyPlugin)
   .settings(
     name := "sbt-azure-functions",
     organization := "nl.codestar",
@@ -45,9 +44,9 @@ lazy val plugin = (project in file("plugin"))
       "-Ywarn-adapted-args"
     ),
     libraryDependencies ++= Seq(
-      "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
-      Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-assembly" % "0.14.10", "1.0", "2.12")
+      "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
     ),
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10"),
     scriptedLaunchOpts := {
       scriptedLaunchOpts.value ++
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
