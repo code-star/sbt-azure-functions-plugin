@@ -9,7 +9,6 @@ lazy val root = (project in file("."))
 
 lazy val library = (project in file("library"))
   .settings(
-    publishArtifact := false,
     name := "azure-functions-library",
     organization := "nl.codestar",
     libraryDependencies ++= Seq(
@@ -19,7 +18,8 @@ lazy val library = (project in file("library"))
       "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
       "org.scalatest" %% "scalatest" % "3.2.2" % "test"
     ),
-    logBuffered in Test := false
+    logBuffered in Test := false,
+    publish := {}
   )
 
 lazy val plugin = (project in file("plugin"))
