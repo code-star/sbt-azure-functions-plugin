@@ -22,7 +22,6 @@ $ exists target/myFunctions/local.settings.json
 
 # reset to test automatic trigger of preceding tasks
 > clean
-> assembly
 
 # zip folder including jar and function json files
 > azfunCreateZipFile

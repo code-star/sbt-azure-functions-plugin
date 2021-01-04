@@ -45,7 +45,8 @@ lazy val plugin = (project in file("plugin"))
       "-Ywarn-adapted-args"
     ),
     libraryDependencies ++= Seq(
-      "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
+      "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value,
+      Defaults.sbtPluginExtra("com.eed3si9n" % "sbt-assembly" % "0.14.10", "1.0", "2.12")
     ),
     scriptedLaunchOpts := {
       scriptedLaunchOpts.value ++

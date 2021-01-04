@@ -5,6 +5,7 @@ import org.reflections.util.ClasspathHelper
 import sbt.Keys.{baseDirectory, target}
 import sbt._
 import sbt.io.Path.allSubpaths
+import sbtassembly.AssemblyKeys.assembly
 
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
@@ -110,7 +111,7 @@ object AzureFunctions extends AutoPlugin {
     },
     azfunGenerateFunctionJsons := {
       // depend on assembly step
-      //val _ = assembly.value
+      val _ = assembly.value
       val log = sbt.Keys.streams.value.log
 
       val folder = azfunTargetFolder.value
