@@ -23,9 +23,6 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
             azfunZipName := "myFunctions",
             azfunJarName := "ScalaFunctions",
             assemblyOutputPath in assembly := azfunTargetFolder.value / s"${azfunJarName.value}.jar",
-
-            // adding this line allows you to run `sbt azfunCreateZipFile` without first calling `sbt assembly`
-            azfunCreateZipFile := (azfunCreateZipFile dependsOn assembly).value
         
             // you need this dependency to be able to use the annotations
             libraryDependencies ++= Seq(
@@ -50,9 +47,9 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
     * `azfunCopyLocalSettingsJson` - to copy the `local.settings.json` file
 
 ## TODO: 
-1. add task dependency to automatically trigger `assembly` task (make it part of the plugin definition)
 1. add task to upload to Azure
 1. add tests against multiple Java versions (java 8 and Java 11)
+1. remove setting `azfunJarName` (and related folder settings) and use the `assembly.value` instead
 
 
 ## Cross compiling and testing
@@ -77,6 +74,13 @@ This plugin uses artifacts from Microsoft:
 * "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test"
 
 For now I will use these versions
+
+### Testing
+#### Unit tests
+* `sbt clean test`
+#### Scripted tests
+* `sbt publishLocal scripted`
+  (the publishLocal is needed to ensure the latest snapshot of the library is available to the plugin)
 
 ## Releasing
 To release a new version:

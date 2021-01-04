@@ -1,38 +1,50 @@
-package nl.codestar.sbt.plugin.azurefunctions
+package sbtazurefunctions
 
+import nl.codestar.azurefunctions.FunctionConfigGenerator
 import org.reflections.util.ClasspathHelper
 import sbt.Keys.{baseDirectory, target}
 import sbt._
 import sbt.io.Path.allSubpaths
+import sbtassembly.AssemblyKeys.assembly
 
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
+object AzureFunctionsKeys {
+  val azfunTargetFolder = settingKey[File](
+    "Target folder that receives the Azure function definitions"
+  )
+  val azfunHostJsonFile =
+    settingKey[File]("Location of the host.json file")
+  val azfunJarName =
+    settingKey[String]("Name of the jar that holds the function definitions (without extension)")
+  val azfunLocalSettingsFile =
+    settingKey[File]("Location of the local.settings.json")
+  val azfunZipName =
+    settingKey[String]("Name of the zip file that will contain the results (without extension)")
+
+  val azfunCreateZipFile = taskKey[File](
+    "Generate the zip file containing the complete Azure Function definition"
+  )
+  val azfunCopyHostJson = taskKey[File]("Copies host.json file")
+  val azfunCopyLocalSettingsJson = taskKey[File]("Copies host.json file")
+  val azfunGenerateFunctionJsons =
+    taskKey[File]("Generates the function.json files for all annotated function entry points")
+
+}
+
 object AzureFunctions extends AutoPlugin {
   override def trigger = AllRequirements
+  override def requires = sbt.plugins.JvmPlugin
 
   object autoImport {
-    val azfunTargetFolder = settingKey[File](
-      "Target folder that receives the Azure function definitions"
-    )
-    val azfunHostJsonFile =
-      settingKey[File]("Location of the host.json file")
-    val azfunJarName =
-      settingKey[String]("Name of the jar that holds the function definitions (without extension)")
-    val azfunLocalSettingsFile =
-      settingKey[File]("Location of the local.settings.json")
-    val azfunZipName =
-      settingKey[String]("Name of the zip file that will contain the results (without extension)")
-
-    val azfunCreateZipFile = taskKey[File](
-      "Generate the zip file containing the complete Azure Function definition"
-    )
-    val azfunCopyHostJson = taskKey[File]("Copies host.json file")
-    val azfunCopyLocalSettingsJson = taskKey[File]("Copies host.json file")
-    val azfunGenerateFunctionJsons =
-      taskKey[File]("Generates the function.json files for all annotated function entry points")
+    val AzureFunctionsKeys = sbtazurefunctions.AzureFunctionsKeys
+    val azfunJarName = sbtazurefunctions.AzureFunctionsKeys.azfunJarName
+    val azfunTargetFolder = sbtazurefunctions.AzureFunctionsKeys.azfunTargetFolder
+    val azfunZipName = sbtazurefunctions.AzureFunctionsKeys.azfunZipName
+    val azfunCreateZipFile = sbtazurefunctions.AzureFunctionsKeys.azfunCreateZipFile
   }
 
-  import autoImport._
+  import AzureFunctionsKeys._
 
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
     azfunHostJsonFile := (baseDirectory in Compile).value / "host.json",
@@ -98,6 +110,8 @@ object AzureFunctions extends AutoPlugin {
       tgt
     },
     azfunGenerateFunctionJsons := {
+      // depend on assembly step
+      val _ = assembly.value
       val log = sbt.Keys.streams.value.log
 
       val folder = azfunTargetFolder.value
@@ -111,12 +125,7 @@ object AzureFunctions extends AutoPlugin {
       val configs = FunctionConfigGenerator.getConfigs(urls)
 
       val baseFolder = azfunTargetFolder.value
-      FunctionConfigGenerator.generateFunctionJsons(
-        azfunJarName.value,
-        baseFolder.toPath,
-        configs,
-        Some(log)
-      )
+      FunctionConfigGenerator.generateFunctionJsons(azfunJarName.value, baseFolder.toPath, configs)
       azfunTargetFolder.value
     }
   )

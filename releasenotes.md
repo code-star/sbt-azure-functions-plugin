@@ -2,10 +2,13 @@
 
 ## Version 0.2.2
 New Features:
-*
+* Dependency between assembly task and azfunCreateZipFile is now part of plugin definition
+  
+    No more need to call `sbt assembly` before `sbt azfunCreateZipFile`
 
 Fixes and other changes:
 * Restructure project to be in line with the `sbt/sbt-autoplugin.g8` template
+* Move to multi-project setup (separate plugin code from library)
 
 
 ## Version 0.2.1
