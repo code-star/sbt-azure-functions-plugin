@@ -46,6 +46,7 @@ lazy val plugin = (project in file("plugin"))
       "-Ywarn-adapted-args"
     ),
     libraryDependencies ++= Seq(
+      "nl.codestar" %% "azure-functions-library" % version.value,
       "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
     ),
     addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10"),
