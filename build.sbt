@@ -7,6 +7,7 @@ lazy val root = (project in file("."))
 
 lazy val library = (project in file("library"))
   .settings(
+    publishArtifact := false,
     name := "azure-functions-library",
     organization := "nl.codestar",
     libraryDependencies ++= Seq(
