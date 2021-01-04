@@ -1,5 +1,8 @@
 # Release notes
 
+## Version 0.2.3
+Identical to 0.2.2, release created to validate project setup.
+
 ## Version 0.2.2
 New Features:
 * Dependency between assembly task and azfunCreateZipFile is now part of plugin definition
