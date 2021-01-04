@@ -91,5 +91,5 @@ To release a new version:
 
     (found a workaround that shows the prompt again: add to build.sbt: `ThisBuild / useSuperShell := false`)
 * reload to make new settings known to sbt
-* Run `sbt plugin/release`
+* Run `sbt release`
 
