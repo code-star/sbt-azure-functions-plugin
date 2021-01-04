@@ -17,7 +17,8 @@ lazy val library = (project in file("library"))
       "org.scalatest" %% "scalatest" % "3.2.2" % "test"
     ),
     logBuffered in Test := false,
-    publish := {}
+    // the library should not be published externally
+    publishArtifact := false
   )
 
 lazy val plugin = (project in file("plugin"))
