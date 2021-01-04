@@ -17,8 +17,10 @@ lazy val library = (project in file("library"))
       "org.scalatest" %% "scalatest" % "3.2.2" % "test"
     ),
     logBuffered in Test := false,
-    // the library should not be published externally
-    publishArtifact := false
+    bintrayRepository := "azure-functions-library",
+    bintrayOrganization := Some("code-star"),
+    bintrayPackageLabels := Seq("azure"),
+    publishMavenStyle := true
   )
 
 lazy val plugin = (project in file("plugin"))
