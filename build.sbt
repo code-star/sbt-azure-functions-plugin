@@ -2,13 +2,16 @@ lazy val root = (project in file("."))
   .aggregate(plugin, library)
   .settings(
     // the root project should not produce any artifacts
-    publishArtifact := false
+    publishArtifact := false,
+    publish := {}
   )
 
 lazy val library = (project in file("library"))
   .settings(
     name := "azure-functions-library",
     organization := "nl.codestar",
+    description := "Library with utility methods to generate function.json artefacts needed to publish code as an Azure Function",
+    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
     libraryDependencies ++= Seq(
       "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
       "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
