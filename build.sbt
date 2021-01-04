@@ -1,29 +1,9 @@
 lazy val root = (project in file("."))
-  .aggregate(plugin, library)
+  .aggregate(plugin)
   .settings(
     // the root project should not produce any artifacts
     publishArtifact := false,
     publish := {}
-  )
-
-lazy val library = (project in file("library"))
-  .settings(
-    name := "azure-functions-library",
-    organization := "nl.codestar",
-    description := "Library with utility methods to generate function.json artefacts needed to publish code as an Azure Function",
-    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
-    libraryDependencies ++= Seq(
-      "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
-      "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
-      "org.scalatest" %% "scalatest" % "3.2.2" % "test"
-    ),
-    logBuffered in Test := false,
-    bintrayRepository := "azure-functions-library",
-    bintrayOrganization := Some("code-star"),
-    bintrayPackageLabels := Seq("azure"),
-    publishMavenStyle := true
   )
 
 lazy val plugin = (project in file("plugin"))
@@ -46,7 +26,11 @@ lazy val plugin = (project in file("plugin"))
       "-Ywarn-adapted-args"
     ),
     libraryDependencies ++= Seq(
-      "nl.codestar" %% "azure-functions-library" % version.value,
+      "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
+      "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.2" % "test",
       "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
     ),
     addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10"),
@@ -62,7 +46,6 @@ lazy val plugin = (project in file("plugin"))
     publishMavenStyle := false,
     publishArtifact in Test := false
   )
-  .dependsOn(library)
 
 // workaround for interactive sessions that do not echo the user input (https://github.com/sbt/sbt-bintray/issues/177)
 ThisBuild / useSuperShell := false

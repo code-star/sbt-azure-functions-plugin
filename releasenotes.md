@@ -1,5 +1,10 @@
 # Release notes
 
+## Version 0.3.0
+
+Fixes and other changes:
+* Removed split setup (library was not included in plugin, so to use it, one needed to add separate dependency)
+
 ## Version 0.2.3 .. 0.2.5
 Identical to 0.2.2, releases created to validate/fix project setup.
 
