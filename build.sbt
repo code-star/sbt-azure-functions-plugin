@@ -2,7 +2,9 @@ lazy val root = (project in file("."))
   .aggregate(plugin, library)
   .settings(
     // make sure the library is published locally before running scripted
-    scripted := (scripted dependsOn publishLocal)
+    scripted := (scripted dependsOn publishLocal),
+    // the root project should not produce any artifacts
+    publishArtifact := false
   )
 
 lazy val library = (project in file("library"))
