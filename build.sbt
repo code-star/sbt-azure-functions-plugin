@@ -1,11 +1,6 @@
 lazy val root = (project in file("."))
   .aggregate(plugin, library)
   .settings(
-    bintrayRepository := "sbt-azure-functions",
-    bintrayOrganization := Some("code-star"),
-    bintrayPackageLabels := Seq("sbt", "plugin"),
-    publishMavenStyle := false,
-    publishArtifact in Test := false,
     // make sure the library is published locally before running scripted
     scripted := (scripted dependsOn publishLocal)
   )
@@ -52,7 +47,12 @@ lazy val plugin = (project in file("plugin"))
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog := false,
-    logBuffered in Test := false
+    logBuffered in Test := false,
+    bintrayRepository := "sbt-azure-functions",
+    bintrayOrganization := Some("code-star"),
+    bintrayPackageLabels := Seq("sbt", "plugin"),
+    publishMavenStyle := false,
+    publishArtifact in Test := false
   )
   .dependsOn(library)
 
