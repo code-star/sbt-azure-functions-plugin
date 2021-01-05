@@ -1,6 +1,7 @@
 lazy val root = (project in file("."))
   .aggregate(plugin)
   .settings(
+    name := "sbt-azure-functions-plugin",
     // the root project should not produce any artifacts
     publishArtifact := false,
     publish := {}
