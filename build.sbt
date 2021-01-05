@@ -41,7 +41,7 @@ lazy val plugin = (project in file("plugin"))
     },
     scriptedBufferLog := false,
     logBuffered in Test := false,
-    bintrayRepository := "sbt-azure-functions",
+    bintrayRepository := "sbt-plugins",
     bintrayOrganization := Some("code-star"),
     bintrayPackageLabels := Seq("sbt", "plugin"),
     publishMavenStyle := false,
