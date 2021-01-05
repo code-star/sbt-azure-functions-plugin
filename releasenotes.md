@@ -1,7 +1,10 @@
 # Release notes
 
-## Version 0.3.0
+## Version 0.3.1
+Identical to 0.3.0, but releasing is now done to the `code-star/sbt-plugins` repository on Bintray
+(was `code-star/sbt-azure-functions`)
 
+## Version 0.3.0
 Fixes and other changes:
 * Removed split setup (library was not included in plugin, so to use it, one needed to add separate dependency)
 
