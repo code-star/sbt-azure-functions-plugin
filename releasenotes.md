@@ -1,5 +1,14 @@
 # Release notes
 
+## Version 0.4.0
+New Features:
+* Instead of in-place packaging of the result from the assembly step, the plugin now copies and renames the assembly jar
+  into another folder (default: `./target/AzureFunction/AzureFunction.jar`) and generates the accompanying files
+  in that same folder.
+  The end result is a zip file (default: `./target/AzureFunction.zip`)
+
+  As a result, there are now no additional settings needed to use the plugin.
+
 ## Version 0.3.1
 Identical to 0.3.0, but releasing is now done to the `code-star/sbt-plugins` repository on Bintray
 (was `code-star/sbt-azure-functions`)
