@@ -20,9 +20,9 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
         .settings(
             ...
 
-            azfunZipName := "myFunctions",
-            azfunJarName := "ScalaFunctions",
-            assemblyOutputPath in assembly := azfunTargetFolder.value / s"${azfunJarName.value}.jar",
+            // optional: override the zip and/or jar name (defaults are AzureFunction.zip and AzureFunction.jar)
+            azfunZipName := "myFunctions.zip",
+            azfunJarName := "ScalaFunctions.jar",
         
             // you need this dependency to be able to use the annotations
             libraryDependencies ++= Seq(
@@ -42,14 +42,13 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
     The `azfunCreateZipFile` task will automatically trigger the following intermediate tasks that could also be
     called individually:
   
-    * `azfunGenerateFunctionJsons` - to make the `function.json` files
+    * `azfunGenerateFunctionJsons` - to make the `function.json` files (implicitly calls `assembly` task)
     * `azfunCopyHostJson` - to copy the `host.json` file
     * `azfunCopyLocalSettingsJson` - to copy the `local.settings.json` file
 
 ## TODO: 
 1. add task to upload to Azure
 1. add tests against multiple Java versions (java 8 and Java 11)
-1. remove setting `azfunJarName` (and related folder settings) and use the `assembly.value` instead
 
 
 ## Cross compiling and testing
@@ -79,10 +78,9 @@ For now I will use these versions
 #### Unit tests
 * `sbt clean test`
 #### Scripted tests
-* `sbt publishLocal scripted`
-  (the publishLocal is needed to ensure the latest snapshot of the library is available to the plugin)
+* `sbt scripted`
 
-## Releasing
+## Releasing (for plugin maintainers)
 To release a new version:
 * Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
 * Set your credentials - you can use `sbt bintrayChangeCredentials`, but when run from the interactive sbt prompt
@@ -91,5 +89,5 @@ To release a new version:
 
     (found a workaround that shows the prompt again: add to build.sbt: `ThisBuild / useSuperShell := false`)
 * reload to make new settings known to sbt
-* Run `sbt publishLocal release`
+* Run `sbt release`
 

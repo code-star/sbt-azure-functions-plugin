@@ -16,11 +16,11 @@ object AzureFunctionsKeys {
   val azfunHostJsonFile =
     settingKey[File]("Location of the host.json file")
   val azfunJarName =
-    settingKey[String]("Name of the jar that holds the function definitions (without extension)")
+    settingKey[String]("Name of the jar that holds the function definitions (default: AzureFunction.jar)")
   val azfunLocalSettingsFile =
     settingKey[File]("Location of the local.settings.json")
   val azfunZipName =
-    settingKey[String]("Name of the zip file that will contain the results (without extension)")
+    settingKey[String]("Name of the zip file that will contain the results (default: AzureFunction.zip)")
 
   val azfunCreateZipFile = taskKey[File](
     "Generate the zip file containing the complete Azure Function definition"
