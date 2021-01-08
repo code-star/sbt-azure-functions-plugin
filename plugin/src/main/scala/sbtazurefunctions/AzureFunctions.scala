@@ -50,7 +50,8 @@ object AzureFunctions extends AutoPlugin {
     azfunHostJsonFile := (baseDirectory in Compile).value / "host.json",
     azfunLocalSettingsFile := (baseDirectory in Compile).value / "local.settings.json",
     azfunTargetFolder := (target in Compile).value / azfunZipName.value,
-    azfunZipName := "AzureFunction",
+    azfunZipName := "AzureFunction.zip",
+    azfunJarName := "AzureFunction.jar",
     azfunCopyHostJson := {
       val log = sbt.Keys.streams.value.log
       val folder = azfunTargetFolder.value
@@ -105,13 +106,13 @@ object AzureFunctions extends AutoPlugin {
       )
 
       val src = azfunTargetFolder.value
-      val tgt = tgtFolder / s"${azfunZipName.value}.zip"
+      val tgt = tgtFolder / azfunZipName.value
       IO.zip(allSubpaths(src), tgt)
       tgt
     },
     azfunGenerateFunctionJsons := {
       // depend on assembly step
-      val _ = assembly.value
+      val assemblyJar = assembly.value
       val log = sbt.Keys.streams.value.log
 
       val folder = azfunTargetFolder.value
@@ -119,9 +120,13 @@ object AzureFunctions extends AutoPlugin {
       log.info("Running azureFunctions task...")
       log.info(s"Generating function.json files to $folder ...")
 
-      val fatJarFile = azfunTargetFolder.value / s"${azfunJarName.value}.jar"
-      val urls =
-        ClasspathHelper.forManifest(fatJarFile.toURI.toURL).asScala.toList
+      val fatJarFile = folder / azfunJarName.value
+
+      // copy the assembly jar into the folder that will be zipped eventually
+      IO.copy(
+        Seq((assemblyJar, fatJarFile))
+      )
+      val urls = ClasspathHelper.forManifest(fatJarFile.toURI.toURL).asScala.toList
       val configs = FunctionConfigGenerator.getConfigs(urls)
 
       val baseFolder = azfunTargetFolder.value

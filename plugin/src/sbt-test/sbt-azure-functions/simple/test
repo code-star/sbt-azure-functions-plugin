@@ -3,34 +3,34 @@
 
 # make the Jar
 > assembly
-$ exists target/myFunctions/ScalaFunctions.jar
+$ exists target/scala-2.12/ScalaFunctions.jar
 
 # generate the function.json
 > azfunGenerateFunctionJsons
 # verify that output has been generated
-$ exists target/myFunctions/ScalaFunction/function.json
+$ exists target/AzureFunction/AzureFunction.jar
+$ exists target/AzureFunction/ScalaFunction/function.json
 
 # copy the host.json
 > azfunCopyHostJson
 # verify that the host.json has been copied
-$ exists target/myFunctions/host.json
+$ exists target/AzureFunction/host.json
 
 # copy the local.settings.json
 > azfunCopyLocalSettingsJson
 # verify that the host.json has been copied
-$ exists target/myFunctions/local.settings.json
+$ exists target/AzureFunction/local.settings.json
 
 # reset to test automatic trigger of preceding tasks
 > clean
 
 # zip folder including jar and function json files
 > azfunCreateZipFile
-$ exists target/myFunctions/ScalaFunctions.jar
-$ exists target/myFunctions/host.json
-$ exists target/myFunctions/local.settings.json
-$ exists target/myFunctions/ScalaFunction/function.json
-$ exists target/myFunctions.zip
+$ exists target/AzureFunction/AzureFunction.jar
+$ exists target/AzureFunction/host.json
+$ exists target/AzureFunction/local.settings.json
+$ exists target/AzureFunction/ScalaFunction/function.json
+$ exists target/AzureFunction.zip
 
 # Uncomment the next lines if you want to look at the results from the scripted test
 # $ pause
-
