@@ -1,5 +1,5 @@
 # SBT Azure Functions Plugin 
-[ ![Download](https://api.bintray.com/packages/code-star/sbt-azure-functions/sbt-azure-functions/images/download.svg) ](https://bintray.com/code-star/sbt-azure-functions/sbt-azure-functions/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/code-star/sbt-plugins/sbt-azure-functions/images/download.svg) ](https://bintray.com/code-star/sbt-plugins/sbt-azure-functions/_latestVersion)
 
 Develop branch: ![Scala CI](https://github.com/code-star/sbt-azure-functions-plugin/workflows/Scala%20CI/badge.svg?branch=develop)
 
