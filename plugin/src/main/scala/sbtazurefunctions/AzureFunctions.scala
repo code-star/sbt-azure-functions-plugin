@@ -39,7 +39,6 @@ object AzureFunctions extends AutoPlugin {
   object autoImport {
     val AzureFunctionsKeys = sbtazurefunctions.AzureFunctionsKeys
     val azfunJarName = sbtazurefunctions.AzureFunctionsKeys.azfunJarName
-    val azfunTargetFolder = sbtazurefunctions.AzureFunctionsKeys.azfunTargetFolder
     val azfunZipName = sbtazurefunctions.AzureFunctionsKeys.azfunZipName
     val azfunCreateZipFile = sbtazurefunctions.AzureFunctionsKeys.azfunCreateZipFile
   }
@@ -49,7 +48,7 @@ object AzureFunctions extends AutoPlugin {
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
     azfunHostJsonFile := (baseDirectory in Compile).value / "host.json",
     azfunLocalSettingsFile := (baseDirectory in Compile).value / "local.settings.json",
-    azfunTargetFolder := (target in Compile).value / azfunZipName.value,
+    azfunTargetFolder := (target in Compile).value / stripExtension(azfunZipName.value),
     azfunZipName := "AzureFunction.zip",
     azfunJarName := "AzureFunction.jar",
     azfunCopyHostJson := {
@@ -106,7 +105,7 @@ object AzureFunctions extends AutoPlugin {
       )
 
       val src = azfunTargetFolder.value
-      val tgt = tgtFolder / azfunZipName.value
+      val tgt = tgtFolder / ensureExtension(azfunZipName.value, "zip")
       IO.zip(allSubpaths(src), tgt)
       tgt
     },
@@ -134,5 +133,20 @@ object AzureFunctions extends AutoPlugin {
       azfunTargetFolder.value
     }
   )
+
+  private def ensureExtension(input: String, extension: String): String = {
+    input.lastIndexOf('.') match {
+      case 0                          => s"${input}.${extension}"
+      case n if (n == input.size - 1) => s"${input}${extension}"
+      case _                          => input
+    }
+  }
+
+  private def stripExtension(input: String): String = {
+    input.lastIndexOf('.') match {
+      case 0 => input
+      case n => input.take(n)
+    }
+  }
 
 }

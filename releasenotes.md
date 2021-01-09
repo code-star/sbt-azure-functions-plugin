@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 0.4.1
+Bug fixes:
+* Default folder name for results used .zip extension
+
 ## Version 0.4.0
 New Features:
 * Instead of in-place packaging of the result from the assembly step, the plugin now copies and renames the assembly jar
