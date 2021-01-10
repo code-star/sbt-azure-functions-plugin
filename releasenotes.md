@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 0.5.0
+New features:
+* New task to deploy function to azure (`azfunDeploy`)
+
 ## Version 0.4.1
 Bug fixes:
 * Default folder name for results used .zip extension

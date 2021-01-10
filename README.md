@@ -7,33 +7,33 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
 
 ## Setup and Usage
 
-* Setup
+### Setup
   
-    in your `project/plugins.sbt` add sbt-assembly and sbt-azure-functions:
+in your `project/plugins.sbt` add sbt-assembly and sbt-azure-functions:
   
-      addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
-      addSbtPlugin("nl.codestar" % "sbt-azure-functions" % "<latest version>")
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+    addSbtPlugin("nl.codestar" % "sbt-azure-functions" % "<latest version>")
 
-    in your `build.sbt` provide values for the assembly and azure-functions plugins:
+in your `build.sbt` provide values for the assembly and azure-functions plugins:
 
-        lazy val root = (project in file("."))
-        .settings(
-            ...
+    lazy val root = (project in file("."))
+      .settings(
+          ...
 
-            // optional: override the zip and/or jar name (defaults are AzureFunction.zip and AzureFunction.jar)
-            azfunZipName := "myFunctions.zip",
-            azfunJarName := "ScalaFunctions.jar",
+          // optional: override the zip and/or jar name (defaults are AzureFunction.zip and AzureFunction.jar)
+          azfunZipName := "myFunctions.zip",
+          azfunJarName := "ScalaFunctions.jar",
+      
+          // you need this dependency to be able to use the annotations
+          libraryDependencies ++= Seq(
+            "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+          )
         
-            // you need this dependency to be able to use the annotations
-            libraryDependencies ++= Seq(
-              "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
-            )
-        
-        )
+      )
 
-* Usage
+### Usage
 
-    `sbt azfunCreateZipFile`
+* `sbt azfunCreateZipFile`
 
     This will generate the fat jar that you want to upload to Azure (`assembly`), and then generates the function
     specifications (`function.json` in separate folders for each method that has been annotated with an `@FunctionName`
@@ -45,6 +45,15 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
     * `azfunGenerateFunctionJsons` - to make the `function.json` files (implicitly calls `assembly` task)
     * `azfunCopyHostJson` - to copy the `host.json` file
     * `azfunCopyLocalSettingsJson` - to copy the `local.settings.json` file
+
+* `sbt azfunDeploy`
+
+    This will deploy the function to Azure, using the azure CLI, which is expected to be available on your path
+    and logged in to the correct Azure Subscription.
+  
+    You can provide these settings to determine the destination:
+    * `azfunResourceGroup`
+    
 
 ## TODO: 
 1. add task to upload to Azure

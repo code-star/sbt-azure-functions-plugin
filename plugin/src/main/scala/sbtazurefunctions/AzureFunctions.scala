@@ -27,6 +27,7 @@ object AzureFunctionsKeys {
   )
   val azfunCopyHostJson = taskKey[File]("Copies host.json file")
   val azfunCopyLocalSettingsJson = taskKey[File]("Copies host.json file")
+  val azfunDeploy = taskKey[Unit]("Deploys the function to Azure")
   val azfunGenerateFunctionJsons =
     taskKey[File]("Generates the function.json files for all annotated function entry points")
 
@@ -108,6 +109,18 @@ object AzureFunctions extends AutoPlugin {
       val tgt = tgtFolder / ensureExtension(azfunZipName.value, "zip")
       IO.zip(allSubpaths(src), tgt)
       tgt
+    },
+    azfunDeploy := {
+      // depend on having the zip available
+      val _ = azfunCreateZipFile.value
+      //val artefact = azfunCreateZipFile.value
+
+      val log = sbt.Keys.streams.value.log
+      log.info("Running azfunDeploy task...")
+
+      import scala.sys.process._
+      import scala.language.postfixOps
+      "echo 'hello world'" !
     },
     azfunGenerateFunctionJsons := {
       // depend on assembly step

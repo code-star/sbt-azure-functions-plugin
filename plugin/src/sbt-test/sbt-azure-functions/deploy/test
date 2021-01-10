@@ -1,0 +1,5 @@
+# test deploy task
+> azfunDeploy
+
+# Uncomment the next lines if you want to look at the results from the scripted test
+# $ pause
