@@ -126,7 +126,11 @@ object DeployFunctionHelper {
   def deployZipFile(zipFile: File, appName: String, rgName: String, log: ManagedLogger): Unit = {
     val zipLocation = zipFile.getAbsolutePath
     log.info(s"Uploading $zipLocation into $appName")
-    val result = (s"az functionapp deployment source config-zip -g $rgName -n $appName --src $zipLocation" !)
+    val result = (s"""az functionapp deployment source config-zip 
+          |   -g $rgName 
+          |   -n $appName 
+          |   --src $zipLocation
+          |""".stripMargin.replaceAll("\n", " ") !)
     if (result != 0) {
       log.error("Failed to upload zip file")
       throw new FunctionDeployFailedException("Failed to upload zip file")
