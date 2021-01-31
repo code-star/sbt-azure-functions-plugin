@@ -50,13 +50,16 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
 
     This will deploy the function to Azure, using the azure CLI, which is expected to be available on your path
     and logged in to the correct Azure Subscription.
+    You will also have to install the app-insights extension to the CLI, by running `az extension add -n application-insights`
   
-    You can provide these settings to determine the destination:
+    You can provide the following settings to determine the destination:
     * `azfunResourceGroup`
+    * `azfunStorageAccount`
     
 
 ## TODO: 
 1. add task to upload to Azure
+1. add support for App Insights workspaces
 1. add tests against multiple Java versions (java 8 and Java 11)
 
 
