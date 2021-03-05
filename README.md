@@ -103,3 +103,4 @@ To release a new version:
 * reload to make new settings known to sbt
 * Run `sbt release`
 
+Update Feb 2021: we started moving away from Bintray. We will start using sbt-ci-release and release to Maven Central. 
