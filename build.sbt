@@ -1,7 +1,24 @@
+lazy val commonSettings = Seq(
+  organization := "nl.codestar",
+  homepage := Some(url("https://github.com/code-star/sbt-azure-functions-plugin")),
+  // version is set by sbt-dynver plugin (included through sbt-ci-assembly)
+  description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
+  licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
+  developers := List(
+    Developer(
+      "jeanmarc",
+      "Jean-Marc van Leerdam",
+      "jean-marc.van.leerdam@ordina.nl",
+      url("https://github.com/jeanmarc")
+    )
+  )
+)
+
 lazy val root = (project in file("."))
   .aggregate(plugin)
   .settings(
     name := "sbt-azure-functions-plugin",
+    commonSettings,
     // the root project should not produce any artifacts
     publishArtifact := false,
     publish := {}
@@ -11,20 +28,7 @@ lazy val plugin = (project in file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-azure-functions",
-    organization := "nl.codestar",
-    homepage := Some(url("https://github.com/code-star/sbt-azure-functions-plugin")),
-    // version is set by sbt-dynver plugin (included through sbt-ci-assembly)
-    description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
-    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
-    developers := List(
-      Developer(
-        "jeanmarc",
-        "Jean-Marc van Leerdam",
-        "jean-marc.van.leerdam@ordina.nl",
-        url("https://github.com/jeanmarc")
-      )
-    ),
-    sonatypeProfileName := organization.value,
+    commonSettings,
     scalacOptions ++= Seq(
       "-encoding",
       "UTF8",
