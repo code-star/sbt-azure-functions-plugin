@@ -12,9 +12,18 @@ lazy val plugin = (project in file("plugin"))
   .settings(
     name := "sbt-azure-functions",
     organization := "nl.codestar",
-    // version is set in version.sbt
+    homepage := Some("https://github.com/code-star/sbt-azure-functions-plugin"),
+    // version is set by sbt-dynver plugin (included through sbt-ci-assembly)
     description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
     licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
+    developers := List(
+      Developer(
+        "jeanmarc",
+        "Jean-Marc van Leerdam",
+        "jean-marc.van.leerdam@ordina.nl",
+        url("https://github.com/jeanmarc")
+      )
+    ),
     scalacOptions ++= Seq(
       "-encoding",
       "UTF8",
@@ -41,10 +50,6 @@ lazy val plugin = (project in file("plugin"))
     },
     scriptedBufferLog := false,
     logBuffered in Test := false,
-    bintrayRepository := "sbt-plugins",
-    bintrayOrganization := Some("code-star"),
-    bintrayPackageLabels := Seq("sbt", "plugin"),
-    publishMavenStyle := false,
     publishArtifact in Test := false
   )
 
