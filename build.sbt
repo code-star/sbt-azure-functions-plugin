@@ -12,7 +12,7 @@ lazy val plugin = (project in file("plugin"))
   .settings(
     name := "sbt-azure-functions",
     organization := "nl.codestar",
-    homepage := Some("https://github.com/code-star/sbt-azure-functions-plugin"),
+    homepage := Some(url("https://github.com/code-star/sbt-azure-functions-plugin")),
     // version is set by sbt-dynver plugin (included through sbt-ci-assembly)
     description := "SBT Plugin to generate function.json artefacts needed to publish code as an Azure Function",
     licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
