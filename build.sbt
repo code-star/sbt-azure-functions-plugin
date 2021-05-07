@@ -24,6 +24,7 @@ lazy val plugin = (project in file("plugin"))
         url("https://github.com/jeanmarc")
       )
     ),
+    sonatypeProfileName := organization.value,
     scalacOptions ++= Seq(
       "-encoding",
       "UTF8",
