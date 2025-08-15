@@ -5,7 +5,7 @@ lazy val root = (project in file("."))
     version := "0.1",
     scalaVersion := "2.12.18",
     libraryDependencies ++= Seq(
-      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "3.1.0"
     ),
     assembly / assemblyJarName := "ScalaFunctions.jar",
     azfunFunctionAppName := "rd-scala-functions",

@@ -3,6 +3,6 @@ lazy val root = (project in file("."))
     name := "showcase",
     version := "1.0",
     libraryDependencies ++= Seq(
-      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "3.1.0"
     )
   )

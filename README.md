@@ -26,7 +26,7 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
       
           // you need this dependency to be able to use the annotations
           libraryDependencies ++= Seq(
-            "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+            "com.microsoft.azure.functions" % "azure-functions-java-library" % "3.1.0"
           )
         
       )

@@ -41,11 +41,11 @@ lazy val plugin = project.in(file("plugin"))
       "-Ywarn-adapted-args"
     ),
     libraryDependencies ++= Seq(
-      "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
-      "com.microsoft.azure" % "azure-tools-common" % "0.10.0",
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
-      "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test",
-      "org.scalatest" %% "scalatest" % "3.2.2" % "test",
+      "com.fasterxml.jackson.core" % "jackson-databind" % "2.19.2",
+      "com.microsoft.azure" % "azure-tools-common" % "0.14.0",
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
+      "com.microsoft.azure.functions" % "azure-functions-java-library" % "3.1.0" % "test",
+      "org.scalatest" %% "scalatest" % "3.2.19" % "test",
       "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
     ),
     addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1"),
