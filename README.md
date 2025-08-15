@@ -92,6 +92,9 @@ For now I will use these versions
 #### Scripted tests
 * `sbt scripted`
 
+Note: to successfully run the `deploy` scripted test, you need to have the Azure CLI installed and logged in to Azure with proper access
+to a subscription that has a resource group and storage account as specified in the `sbt-test/sbt-azure-functions/deploy/build.sbt` file.
+
 ## Releasing (for plugin maintainers)
 To release a new version:
 * Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
