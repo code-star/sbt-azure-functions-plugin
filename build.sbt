@@ -8,13 +8,13 @@ lazy val commonSettings = Seq(
     Developer(
       "jeanmarc",
       "Jean-Marc van Leerdam",
-      "jean-marc.van.leerdam@ordina.nl",
-      url("https://github.com/jeanmarc")
+      "jean-marc.vanleerdam@soprasteria.com",
+      url("https://soprasteria.com")
     )
   )
 )
 
-lazy val root = (project in file("."))
+lazy val root = project.in(file("."))
   .aggregate(plugin)
   .settings(
     name := "sbt-azure-functions-plugin",
@@ -24,7 +24,7 @@ lazy val root = (project in file("."))
     publish := {}
   )
 
-lazy val plugin = (project in file("plugin"))
+lazy val plugin = project.in(file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-azure-functions",
@@ -48,14 +48,14 @@ lazy val plugin = (project in file("plugin"))
       "org.scalatest" %% "scalatest" % "3.2.2" % "test",
       "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
     ),
-    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10"),
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1"),
     scriptedLaunchOpts := {
       scriptedLaunchOpts.value ++
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog := false,
-    logBuffered in Test := false,
-    publishArtifact in Test := false
+    Test / logBuffered := false,
+    Test / publishArtifact := false
   )
 
 // workaround for interactive sessions that do not echo the user input (https://github.com/sbt/sbt-bintray/issues/177)

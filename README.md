@@ -11,7 +11,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
   
 in your `project/plugins.sbt` add sbt-assembly and sbt-azure-functions:
   
-    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
     addSbtPlugin("nl.codestar" % "sbt-azure-functions" % "<latest version>")
 
 in your `build.sbt` provide values for the assembly and azure-functions plugins:

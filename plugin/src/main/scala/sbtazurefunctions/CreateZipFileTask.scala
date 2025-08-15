@@ -19,7 +19,7 @@ object CreateZipFileTask {
 
         val log = sbt.Keys.streams.value.log
 
-        val tgtFolder = (target in Compile).value
+        val tgtFolder = (Compile / target).value
 
         log.info("Running azfunCreateZipFile task...")
         log.info(
@@ -28,7 +28,7 @@ object CreateZipFileTask {
 
         val src = azfunTargetFolder.value
         val tgt = tgtFolder / ensureExtension(azfunZipName.value, "zip")
-        IO.zip(allSubpaths(src), tgt)
+        IO.zip(allSubpaths(src), tgt, None)
         tgt
       }
     )

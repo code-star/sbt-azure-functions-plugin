@@ -30,14 +30,14 @@ class FunctionConfigGeneratorTest extends AnyFlatSpec {
 
   "An annotated function" should "be found" in {
     val result = FunctionConfigGenerator.getFunctions(List(getClassUrl))
-    assert(result.isEmpty == false)
+    assert(result.nonEmpty)
   }
 
   "An annotated function" should "produce a configuration" in {
     val result = FunctionConfigGenerator.getConfigs(List(getClassUrl))
-    assert(result.isEmpty == false)
+    assert(result.nonEmpty)
     assert(result.get("ScalaFunction") != null)
-    val config = result.get("ScalaFunction").get
+    val config = result("ScalaFunction")
     assert(config.getEntryPoint == "nl.codestar.azurefunctions.FunctionConfigGeneratorTest.SampleAzureFunctions.run")
     assert(config.getScriptFile == null)
     val binding = config.getBindings.get(0)
