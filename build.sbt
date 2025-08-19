@@ -63,6 +63,7 @@ lazy val plugin = project.in(file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-azure-functions",
+    sonaDeploymentName := "sbt-azure-functions",
     commonSettings,
     scalaVersion := "2.12.18",
     pluginCrossBuild / sbtVersion := {
@@ -110,5 +111,3 @@ ThisBuild / publishTo := {
   if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
   else localStaging.value
 }
-
-ThisBuild / sonaDeploymentName := "sbt-azure-functions"
