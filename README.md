@@ -113,13 +113,14 @@ Note: The `.env` file needs to be kept out of the git repository (it is `.gitign
 
 See [Using Sonatype](https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html) in the SBT documentation.
 
-Steps to release SNAPSHOT version (not preferred):
-1. `sbt publishSigned`
-2. `sbt sonaUpload`
-3. Go to https://central.sonatype.com/publishing/deployments and publish the deployment.
-    * or run `sbt sonaRelease` to publish the deployment automatically
+### SNAPSHOT versions
+Steps to release SNAPSHOT version:
+1. Make sure HEAD is not directly pointing to a tag
+2. `sbt publishSigned`
+3. make note of the SNAPSHOT version that is used (Sonatype does not allow searching/browsing for SNAPSHOT versions)
 
-Steps to release (preferred):
+### Production versions
+Steps to release production version:
 1. Tag the current commit with the new version number, e.g. `git tag v0.5.0`
 2. `sbt publishSigned`
 3. `sbt sonaUpload`
