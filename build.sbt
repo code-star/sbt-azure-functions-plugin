@@ -110,3 +110,5 @@ ThisBuild / publishTo := {
   if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
   else localStaging.value
 }
+
+ThisBuild / sonaDeploymentName := "sbt-azure-functions"
