@@ -63,7 +63,6 @@ lazy val plugin = project.in(file("plugin"))
   .enablePlugins(SbtPlugin)
   .settings(
     name := "sbt-azure-functions",
-    sonaDeploymentName := "sbt-azure-functions",
     commonSettings,
     scalaVersion := "2.12.18",
     pluginCrossBuild / sbtVersion := {
