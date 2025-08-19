@@ -1,3 +1,5 @@
-addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.11.1")
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
 addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "2.0.13")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
+addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.11.1")
+addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
+addSbtPlugin("nl.gn0s1s" % "sbt-dotenv" % "3.1.1")

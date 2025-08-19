@@ -96,14 +96,32 @@ Note: to successfully run the `deploy` scripted test, you need to have the Azure
 to a subscription that has a resource group and storage account as specified in the `sbt-test/sbt-azure-functions/deploy/build.sbt` file.
 
 ## Releasing (for plugin maintainers)
-To release a new version:
-* Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
-* Set your credentials - you can use `sbt bintrayChangeCredentials`, but when run from the interactive sbt prompt
-  you will not see the requests for username and password. So blindly first type your username, press enter, then
-  paste your API key and press enter again.
+To release a new version, make sure you have:
+* proper access to the `nl.codestar` namespace on Sonatype.
+* GnuPG (`gpg`) installed and a signing key configured.
+    * We use `sbt-pgp` plugin to sign, which relies on the `gpg` command line tool
+* create a `.env` file in the project root with the following variables:
+  ```
+  PGP_KEYID=<id of the signing key>
+  PGP_PASSPHRASE=<your PGP passphrase>
+  SONATYPE_USER=<user id or token id>
+  SONATYPE_PASSWORD=<password or token>
 
-    (found a workaround that shows the prompt again: add to build.sbt: `ThisBuild / useSuperShell := false`)
-* reload to make new settings known to sbt
-* Run `sbt release`
+  ```
 
-Update Feb 2021: we started moving away from Bintray. We will start using sbt-ci-release and release to Maven Central. 
+Note: The `.env` file needs to be kept out of the git repository (it is `.gitignore`d).
+
+See [Using Sonatype](https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html) in the SBT documentation.
+
+Steps to release SNAPSHOT version (not preferred):
+1. `sbt publishSigned`
+2. `sbt sonaUpload`
+3. Go to https://central.sonatype.com/publishing/deployments and publish the deployment.
+    * or run `sbt sonaRelease` to publish the deployment automatically
+
+Steps to release (preferred):
+1. Tag the current commit with the new version number, e.g. `git tag v0.5.0`
+2. `sbt publishSigned`
+3. `sbt sonaUpload`
+4. Go to https://central.sonatype.com/publishing/deployments and publish the deployment.
+    * or run `sbt sonaRelease` to publish the deployment automatically
