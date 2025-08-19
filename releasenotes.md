@@ -4,6 +4,9 @@
 New features:
 * New task to deploy function to azure (`azfunDeploy`)
 
+## Version 0.4.6
+Based on latest main (0.5.0), used to release to Sonatype instead of Bintray
+
 ## Version 0.4.1
 Bug fixes:
 * Default folder name for results used .zip extension
