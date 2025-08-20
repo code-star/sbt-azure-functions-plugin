@@ -64,6 +64,14 @@ lazy val plugin = project.in(file("plugin"))
   .settings(
     name := "sbt-azure-functions",
     commonSettings,
+    sonaDeploymentName := {
+      val o = organization.value
+      val n = name.value
+      val v = version.value
+      val time = java.time.LocalTime.now.format(java.time.format.DateTimeFormatter.ofPattern("HHmmss"))
+      s"$o:$n:$v:$time"
+    },
+
     scalaVersion := "2.12.18",
     pluginCrossBuild / sbtVersion := {
       scalaBinaryVersion.value match {
