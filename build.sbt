@@ -68,8 +68,8 @@ lazy val plugin = project.in(file("plugin"))
       val o = organization.value
       val n = name.value
       val v = version.value
-      val time = java.time.LocalTime.now.format(java.time.format.DateTimeFormatter.ofPattern("HHmmss"))
-      s"$o:$n:$v:$time"
+      val dt = java.time.LocalDateTime.now.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+      s"$o:$n:$v:$dt"
     },
 
     scalaVersion := "2.12.18",
