@@ -19,6 +19,11 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
     lazy val root = (project in file("."))
       .settings(
           ...
+          // replace these values with appropriate values for your Azure Function
+          azfunFunctionAppName := "ScalaFunction",
+          azfunLocation := "azure-location", // e.g. "westeurope", "eastus", etc.
+          azfunResourceGroup := "your-resource-group",
+          azfunStorageAccount := "yourstorageaccount"
 
           // optional: override the zip and/or jar name (defaults are AzureFunction.zip and AzureFunction.jar)
           azfunZipName := "myFunctions.zip",
@@ -52,7 +57,7 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
     and logged in to the correct Azure Subscription.
     You will also have to install the app-insights extension to the CLI, by running `az extension add -n application-insights`
   
-    You can provide the following settings to determine the destination:
+    You must provide the following settings to determine the destination:
     * `azfunResourceGroup`
     * `azfunStorageAccount`
     
