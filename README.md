@@ -1,7 +1,7 @@
 # SBT Azure Functions Plugin 
-<<TODO: add download link from new location (once moved from bintray)>>
+[![sbt-azure-functions release badge](https://maven-badges.sml.io/sonatype-central/nl.codestar/sbt-azure-functions_2.12_1.0/badge.svg?subject=Latest%20sbt-azure-functions)](https://github.com/code-star/sbt-azure-functions)
 
-Develop branch: ![Scala CI](https://github.com/code-star/sbt-azure-functions-plugin/workflows/Scala%20CI/badge.svg?branch=develop)
+![Scala CI](https://github.com/code-star/sbt-azure-functions-plugin/workflows/Scala%20CI/badge.svg)
 
 Experimental plugin for sbt to create Azure Function artefacts (function.json) needed to publish code as an Azure Function.
 
