@@ -94,6 +94,7 @@ For now I will use these versions
 #### Unit tests
 * `sbt clean test`
 #### Scripted tests
+* `sbt publishLocal`
 * `sbt scripted`
 
 Note: to successfully run the `deploy` scripted test, you need to have the Azure CLI installed and logged in to Azure with proper access
