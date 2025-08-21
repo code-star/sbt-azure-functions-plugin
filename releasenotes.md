@@ -1,6 +1,15 @@
 # Release notes
 
 ## Version 0.5.0
+Updates:
+* version updates to our dependencies
+* use the 2.x series of the Microsoft Extension Bundle (1.x is no longer supported)
+
+
+
+## Version 0.4.6
+Based on latest develop (August 2025), used to release to Sonatype instead of Bintray
+
 New features:
 * New task to deploy function to azure (`azfunDeploy`)
 

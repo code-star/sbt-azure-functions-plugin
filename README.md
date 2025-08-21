@@ -11,7 +11,7 @@ Experimental plugin for sbt to create Azure Function artefacts (function.json) n
   
 in your `project/plugins.sbt` add sbt-assembly and sbt-azure-functions:
   
-    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+    addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
     addSbtPlugin("nl.codestar" % "sbt-azure-functions" % "<latest version>")
 
 in your `build.sbt` provide values for the assembly and azure-functions plugins:
@@ -19,6 +19,11 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
     lazy val root = (project in file("."))
       .settings(
           ...
+          // replace these values with appropriate values for your Azure Function
+          azfunFunctionAppName := "ScalaFunction",
+          azfunLocation := "azure-location", // e.g. "westeurope", "eastus", etc.
+          azfunResourceGroup := "your-resource-group",
+          azfunStorageAccount := "yourstorageaccount"
 
           // optional: override the zip and/or jar name (defaults are AzureFunction.zip and AzureFunction.jar)
           azfunZipName := "myFunctions.zip",
@@ -26,7 +31,7 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
       
           // you need this dependency to be able to use the annotations
           libraryDependencies ++= Seq(
-            "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1"
+            "com.microsoft.azure.functions" % "azure-functions-java-library" % "3.1.0"
           )
         
       )
@@ -52,13 +57,12 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
     and logged in to the correct Azure Subscription.
     You will also have to install the app-insights extension to the CLI, by running `az extension add -n application-insights`
   
-    You can provide the following settings to determine the destination:
+    You must provide the following settings to determine the destination:
     * `azfunResourceGroup`
     * `azfunStorageAccount`
     
 
 ## TODO: 
-1. add task to upload to Azure
 1. add support for App Insights workspaces
 1. add tests against multiple Java versions (java 8 and Java 11)
 
@@ -70,19 +74,19 @@ released for different scala versions and different sbt versions. I have not (ye
 what Scala version is used for each sbt release, except for https://github.com/sbt/sbt/issues/5032, 
 so I am also keeping track here:
 
-| SBT release(s)| Scala version     | Remarks                                          |
-|---------------|-------------------|--------------------------------------------------|
-| 0.x           | 2.10.x            |
-| 1.x           | 2.12.x            |
-| 2.x           | 2.13.x or 3.0.x   |
-| 3.x           | 3.0.x or 3.1.x    |
+| SBT release(s)  | Scala version   | Remarks |
+|-----------------|-----------------|---------|
+| 0.x             | 2.10.x          |         |
+| 1.x             | 2.12.x          |         |
+| 2.x             | 2.13.x or 3.0.x |         |
+| 3.x             | 3.0.x or 3.1.x  |         |
 
 For now, I will focus only on sbt 1.x and Scala 2.12.x
 
 ### Microsoft Azure Dependencies
 This plugin uses artifacts from Microsoft:
-* "com.microsoft.azure" % "azure-tools-common" % "0.10.0"
-* "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test"
+* `"com.microsoft.azure" % "azure-tools-common" % "0.10.0"`
+* `"com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test"`
 
 For now I will use these versions
 
@@ -90,17 +94,40 @@ For now I will use these versions
 #### Unit tests
 * `sbt clean test`
 #### Scripted tests
+* `sbt publishLocal`
 * `sbt scripted`
 
+Note: to successfully run the `deploy` scripted test, you need to have the Azure CLI installed and logged in to Azure with proper access
+to a subscription that has a resource group and storage account as specified in the `sbt-test/sbt-azure-functions/deploy/build.sbt` file.
+
 ## Releasing (for plugin maintainers)
-To release a new version:
-* Get a [bintray](https://bintray.com) account and make sure you're a member of the [`code-star`](https://bintray.com/code-star) organization.
-* Set your credentials - you can use `sbt bintrayChangeCredentials`, but when run from the interactive sbt prompt
-  you will not see the requests for username and password. So blindly first type your username, press enter, then
-  paste your API key and press enter again.
+To release a new version, make sure you have:
+* proper access to the `nl.codestar` namespace on Sonatype.
+* GnuPG (`gpg`) installed and a signing key configured.
+    * We use `sbt-pgp` plugin to sign, which relies on the `gpg` command line tool
+* create a `.env` file in the project root with the following variables:
+  ```
+  PGP_KEYID=<id of the signing key>
+  PGP_PASSPHRASE=<your PGP passphrase>
+  SONATYPE_USER=<user id or token id>
+  SONATYPE_PASSWORD=<password or token>
 
-    (found a workaround that shows the prompt again: add to build.sbt: `ThisBuild / useSuperShell := false`)
-* reload to make new settings known to sbt
-* Run `sbt release`
+  ```
 
-Update Feb 2021: we started moving away from Bintray. We will start using sbt-ci-release and release to Maven Central. 
+Note: The `.env` file needs to be kept out of the git repository (it is `.gitignore`d).
+
+See [Using Sonatype](https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html) in the SBT documentation.
+
+### SNAPSHOT versions
+Steps to release SNAPSHOT version:
+1. Make sure HEAD is not directly pointing to a tag
+2. `sbt publishSigned`
+3. make note of the SNAPSHOT version that is used (Sonatype does not allow searching/browsing for SNAPSHOT versions)
+
+### Production versions
+Steps to release production version:
+1. Tag the current commit with the new version number, e.g. `git tag v0.5.0`
+2. `sbt publishSigned`
+3. `sbt sonaUpload`
+4. Go to https://central.sonatype.com/publishing/deployments and publish the deployment.
+    * or run `sbt sonaRelease` to publish the deployment automatically

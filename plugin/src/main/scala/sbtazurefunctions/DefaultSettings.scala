@@ -18,11 +18,11 @@ object DefaultSettings {
   def settings: Seq[Setting[_]] =
     Seq(
       azfunAppInsightsName := azfunFunctionAppName.value,
-      azfunHostJsonFile := (baseDirectory in Compile).value / "host.json",
+      azfunHostJsonFile := (Compile / baseDirectory).value / "host.json",
       azfunJarName := "AzureFunction.jar",
-      azfunLocalSettingsFile := (baseDirectory in Compile).value / "local.settings.json",
+      azfunLocalSettingsFile := (Compile / baseDirectory).value / "local.settings.json",
       azfunSKU := "Standard_LRS",
-      azfunTargetFolder := (target in Compile).value / stripExtension(azfunZipName.value),
+      azfunTargetFolder := (Compile / target).value / stripExtension(azfunZipName.value),
       azfunZipName := "AzureFunction.zip"
     )
 

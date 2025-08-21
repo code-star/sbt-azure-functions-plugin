@@ -1,4 +1,4 @@
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
 
 // build root project
 lazy val root = Project("showcase", file(".")) dependsOn (ProjectRef(pluginParent, "plugin"))
