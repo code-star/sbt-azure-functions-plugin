@@ -56,7 +56,14 @@ lazy val root = project.in(file("."))
     commonSettings,
     // the root project should not produce any artifacts
     publishArtifact := false,
-    publish := {}
+    publish := {},
+    sonaDeploymentName := {
+      val o = organization.value
+      val n = "sbt-azure-functions"
+      val v = version.value
+      val dt = java.time.LocalDateTime.now.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+      s"$o:$n:$v:$dt"
+    },
   )
 
 lazy val plugin = project.in(file("plugin"))
@@ -64,13 +71,6 @@ lazy val plugin = project.in(file("plugin"))
   .settings(
     name := "sbt-azure-functions",
     commonSettings,
-    sonaDeploymentName := {
-      val o = organization.value
-      val n = name.value
-      val v = version.value
-      val dt = java.time.LocalDateTime.now.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
-      s"$o:$n:$v:$dt"
-    },
 
     scalaVersion := "2.12.18",
     pluginCrossBuild / sbtVersion := {
