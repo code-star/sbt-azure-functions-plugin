@@ -10,6 +10,6 @@ lazy val root = (project in file("."))
     assembly / assemblyJarName := "ScalaFunctions.jar",
     azfunFunctionAppName := "rd-scala-functions",
     azfunLocation := "westeurope",
-    azfunResourceGroup := "rg-rd-scala-functions",
-    azfunStorageAccount := "a77a749630954151919e"
+    azfunResourceGroup := "rg-function-showcase",
+    azfunStorageAccount := "rgfunctionshowcasebaa9"
   )

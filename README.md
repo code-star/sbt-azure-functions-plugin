@@ -63,7 +63,6 @@ in your `build.sbt` provide values for the assembly and azure-functions plugins:
     
 
 ## TODO: 
-1. add task to upload to Azure
 1. add support for App Insights workspaces
 1. add tests against multiple Java versions (java 8 and Java 11)
 
@@ -75,19 +74,19 @@ released for different scala versions and different sbt versions. I have not (ye
 what Scala version is used for each sbt release, except for https://github.com/sbt/sbt/issues/5032, 
 so I am also keeping track here:
 
-| SBT release(s)| Scala version     | Remarks                                          |
-|---------------|-------------------|--------------------------------------------------|
-| 0.x           | 2.10.x            |
-| 1.x           | 2.12.x            |
-| 2.x           | 2.13.x or 3.0.x   |
-| 3.x           | 3.0.x or 3.1.x    |
+| SBT release(s)  | Scala version   | Remarks |
+|-----------------|-----------------|---------|
+| 0.x             | 2.10.x          |         |
+| 1.x             | 2.12.x          |         |
+| 2.x             | 2.13.x or 3.0.x |         |
+| 3.x             | 3.0.x or 3.1.x  |         |
 
 For now, I will focus only on sbt 1.x and Scala 2.12.x
 
 ### Microsoft Azure Dependencies
 This plugin uses artifacts from Microsoft:
-* "com.microsoft.azure" % "azure-tools-common" % "0.10.0"
-* "com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test"
+* `"com.microsoft.azure" % "azure-tools-common" % "0.10.0"`
+* `"com.microsoft.azure.functions" % "azure-functions-java-library" % "1.3.1" % "test"`
 
 For now I will use these versions
 
