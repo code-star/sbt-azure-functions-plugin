@@ -24,25 +24,25 @@ lazy val commonSettings = Seq(
     Credentials(
       "GnuPG Key ID",
       "gpg",
-      System.getenv("PGP_KEYID"), // key identifier
+      System.getenv("PGP_SECRET"), // key identifier
       "ignored" // this field is ignored; passwords are supplied by pinentry
     ),
     Credentials(
       "Sonatype Nexus Repository Manager",
       "oss.sonatype.org",
-      System.getenv("SONATYPE_USER"),
+      System.getenv("SONATYPE_USERNAME"),
       System.getenv("SONATYPE_PASSWORD") // Use environment variable for security
     ),
     Credentials(
       "Sonatype Nexus Repository Manager",
       "central.sonatype.com",
-      System.getenv("SONATYPE_USER"),
+      System.getenv("SONATYPE_USERNAME"),
       System.getenv("SONATYPE_PASSWORD") // Use environment variable for security
     ),
     Credentials(
       "central-snapshots",
       "central.sonatype.com",
-      System.getenv("SONATYPE_USER"),
+      System.getenv("SONATYPE_USERNAME"),
       System.getenv("SONATYPE_PASSWORD") // Use environment variable for security
     )
   )

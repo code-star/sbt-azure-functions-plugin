@@ -107,9 +107,9 @@ To release a new version, make sure you have:
     * We use `sbt-pgp` plugin to sign, which relies on the `gpg` command line tool
 * create a `.env` file in the project root with the following variables:
   ```
-  PGP_KEYID=<id of the signing key>
+  PGP_SECRET=<id of the signing key>
   PGP_PASSPHRASE=<your PGP passphrase>
-  SONATYPE_USER=<user id or token id>
+  SONATYPE_USERNAME=<user id or token id>
   SONATYPE_PASSWORD=<password or token>
 
   ```
