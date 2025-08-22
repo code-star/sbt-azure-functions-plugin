@@ -14,11 +14,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          gpg-private-key: ${{ secrets.PGP_SECRET }}
-          gpg-passphrase: PGP_PASSPHRASE
-        env:
-          PGP_ID: ${{ secrets.PGP_ID }}
-          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
       - uses: sbt/setup-sbt@v1
       - run: sbt ci-release
         env:

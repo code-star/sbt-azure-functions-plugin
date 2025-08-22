@@ -20,22 +20,7 @@ jobs:
       with:
         distribution: temurin
         java-version: 17
-        gpg-private-key: ${{ secrets.PGP_SECRET }}
-        gpg-passphrase: PGP_PASSPHRASE
-      env:
-        PGP_ID: ${{ secrets.PGP_ID }}
-        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
     - uses: sbt/setup-sbt@v1
-    - name: ShowSome
-      shell: bash
-      run: |
-        echo "PGP_ID = " $PGP_ID
-        echo "Available keys:"
-        gpg --list-secret-keys --keyid-format LONG
-      env:
-        PGP_ID: ${{ secrets.PGP_ID }}
-        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-        PGP_SECRET: ${{ secrets.PGP_SECRET }}
     - name: Run tests
       shell: bash
       run: sbt test
