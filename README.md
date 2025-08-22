@@ -101,30 +101,41 @@ Note: to successfully run the `deploy` scripted test, you need to have the Azure
 to a subscription that has a resource group and storage account as specified in the `sbt-test/sbt-azure-functions/deploy/build.sbt` file.
 
 ## Releasing (for plugin maintainers)
-To release a new version, make sure you have:
+To release a new version, all you have to do is push a tag that starts with `v` (`v0.5.1` for example).
+
+The Github Action `Release` will pick it up and perform the `sbt ci-release` command, which will publish the plugin to Sonatype.
+
+Then go to the Github Repo and create a new release, using the tag you just pushed.
+
+### Local releases
+In case you want to run the `sbt ci-release` command locally, you need to mimic the environment that the Github Action uses.
+Make sure you have:
 * proper access to the `nl.codestar` namespace on Sonatype.
 * GnuPG (`gpg`) installed and a signing key configured.
     * We use `sbt-pgp` plugin to sign, which relies on the `gpg` command line tool
 * create a `.env` file in the project root with the following variables:
   ```
-  PGP_SECRET=<id of the signing key>
+  PGP_ID=<id of the signing key>
+  PGP_SECRET="---BEGIN PGP PRIVATE KEY BLOCK ---
+  ...
+  ---END PGP PRIVATE KEY BLOCK---"
+  PGP_SECRET_B64=<base64 encoded version of PGP_SECRET>
   PGP_PASSPHRASE=<your PGP passphrase>
   SONATYPE_USERNAME=<user id or token id>
   SONATYPE_PASSWORD=<password or token>
-
   ```
 
-Note: The `.env` file needs to be kept out of the git repository (it is `.gitignore`d).
+Note: The `.env` file needs to be kept out of the git repository (it is `.gitignore`d)!
 
 See [Using Sonatype](https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html) in the SBT documentation.
 
-### SNAPSHOT versions
+#### SNAPSHOT versions
 Steps to release SNAPSHOT version:
 1. Make sure HEAD is not directly pointing to a tag
 2. `sbt publishSigned`
 3. make note of the SNAPSHOT version that is used (Sonatype does not allow searching/browsing for SNAPSHOT versions)
 
-### Production versions
+#### Production versions
 Steps to release production version:
 1. Tag the current commit with the new version number, e.g. `git tag v0.5.0`
 2. `sbt publishSigned`
