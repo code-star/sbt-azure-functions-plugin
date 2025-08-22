@@ -24,7 +24,7 @@ lazy val commonSettings = Seq(
     Credentials(
       "GnuPG Key ID",
       "gpg",
-      System.getenv("PGP_SECRET"), // key identifier
+      System.getenv("PGP_ID"), // key identifier
       "ignored" // this field is ignored; passwords are supplied by pinentry
     ),
     Credentials(
